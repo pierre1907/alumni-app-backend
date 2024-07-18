@@ -26,14 +26,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/v1/" ).permitAll()
+                .antMatchers("/auth/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .sessionManagement().maximumSessions(3) // Limiter le nombre de sessions par utilisateur
+                .and().and()
                 .formLogin().permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
                 .csrf().disable();
+
     }
 
     @Bean

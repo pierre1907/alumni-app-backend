@@ -66,6 +66,6 @@ public class UserService implements UserDetailsService {
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             return user;
         }
-        return null; // Return null if authentication fails
+        return null;
     }
 }
