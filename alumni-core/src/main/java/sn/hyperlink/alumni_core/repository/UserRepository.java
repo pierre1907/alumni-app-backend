@@ -1,7 +1,7 @@
 package sn.hyperlink.alumni_core.repository;
 
 
-import sn.hyperlink.alumni_core.user.User;
+import sn.hyperlink.alumni_core.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     // Rechercher un utilisateur par email
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
 
     // Rechercher des utilisateurs par prénom
     List<User> findByPrenomAndNom(String prenom, String nom);
@@ -42,4 +42,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Supprimer tous les utilisateurs par année de sortie
     void deleteAllByAnneeDeSortie(int annee);
+
+    // Trouver un utilisateur par email et mot de passe
+    User findByEmailAndPassword(String email, String password);
+
 }

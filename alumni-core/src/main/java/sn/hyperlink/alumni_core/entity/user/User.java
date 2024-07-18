@@ -1,4 +1,4 @@
-package sn.hyperlink.alumni_core.user;
+package sn.hyperlink.alumni_core.entity.user;
 
 import lombok.*;
 import sn.hyperlink.alumni_core.utils.ValidEmailDomain;
@@ -81,9 +81,13 @@ public class User {
     @Column(name= "photo")
     private String profilePictureUrl;
 
+    @NotBlank(message = "Veuillez entrer un mot de passe")
     @Column(name= "mdp")
     private String password;
 
+    @Transient
+    @NotBlank(message = "Veuillez confirmer votre mot de passe")
     @Column(name= "mdp_confirm")
     private String passwordRepeat;
+
 }

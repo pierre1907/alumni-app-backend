@@ -9,6 +9,4 @@ public class AlumniCoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AlumniCoreApplication.class, args);
 	}
-
 }
-

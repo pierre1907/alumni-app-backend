@@ -1,11 +1,12 @@
 package sn.hyperlink.alumni_core.controller;
 
-import sn.hyperlink.alumni_core.user.User;
+import sn.hyperlink.alumni_core.entity.user.User;
 import sn.hyperlink.alumni_core.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sn.hyperlink.alumni_core.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -16,10 +17,12 @@ import java.util.Optional;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
+        this.userService= userService;
     }
 
     // récupérer tous les utilisateurs
@@ -39,7 +42,7 @@ public class UserController {
     // Endpoint pour créer un nouvel utilisateur
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        User savedUser = userRepository.save(user);
+        User savedUser = userService.saveUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
@@ -49,8 +52,8 @@ public class UserController {
         if (!userRepository.existsById(userId)) {
             return ResponseEntity.notFound().build();
         }
-        user.setId(userId); // assurez-vous que l'ID correspond à celui de l'utilisateur à mettre à jour
-        User updatedUser = userRepository.save(user);
+        user.setId(userId);
+        User updatedUser = userService.updateUser(user);
         return ResponseEntity.ok(updatedUser);
     }
 
